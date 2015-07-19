@@ -7,4 +7,4 @@ The problem we have is that for all kinds of Android devices (Tablet, Phone and 
 # Solution
 There are two big parts for this probelm.
 First part is the file transferring part between Android Device and machine. **Security issue can be ignored** right now, but an easy solution will be generating random username and let user pass the username (or password) through the curl command.
-<img src="https://github.com/FrankSunChenfan/CodeU/blob/master/pics/High_Level_Thoughts.png" alt="File Transferring Ideas" width="528" height="270" border="10" />
+<img src="https://github.com/FrankSunChenfan/CodeU/blob/master/pics/High_Level_Thoughts.png" alt="File Transferring Ideas" width="634" height="324" border="10" />
