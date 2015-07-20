@@ -1,8 +1,8 @@
 # CodeU
-This repo is used for the final project of CodeU. The main purpose of this app is to transferring (mainly apk) files through the networks and possibly auto install them.
+This repo is used for the final project of CodeU. The main purpose of this app is to transfer (mainly apk) files through the networks and possibly auto install them.
 
 # Probelm
-The problem we have is that for all kinds of Android devices (Tablet, Phone and Watch), it seems hard to **_install an offline or third-party apk from Computer/Laptop to the device_**. We are trying to solve this problem by letting device be a server and wirelessly (through the Local Area Network) transfer the files from the host machine to the device. Our targetting file type is **apk** file, but might extend to other type of files as well. 
+The problem we have is that for all kinds of Android devices (Tablet, Phone and Watch), it seems hard to **_install an offline or third-party apk from Computer/Laptop_**. We are trying to solve this problem by letting the device be a server and wirelessly (through the Local Area Network) transfer the files from the host machine to the device. Our targetting file type is **apk** file, but might extend to other type of files as well. 
 
 # Solution
 There are three big parts for this probelm.
@@ -29,12 +29,16 @@ About user and file system interaction I think can be summarized as the followin
 
 <img src="https://github.com/FrankSunChenfan/CodeU/blob/master/pics/Manual_Option.png" alt="Manual Option">
 
-This will be all the options that user can potentially do manually to a file I will say. Need some research on how to achieve these functionality as well. 
+This will be all the options that user can potentially do manually to a file I will say. Need some research on how to achieve these functionalities as well. 
 
-Another thing mainly associate with file system is the general GUI of our app. I would think it as an easy or not complicated clean app. If our app is popular maybe we can insert some ads to make some pocket money :) jk. 
+Another thing mainly associates with file system is the GUI of our app. I would think it as an easy or not complicated clean app. If our app is popular maybe we can insert some ads to make some pocket money :) jk. 
+
+My thoughts for the GUI designed will be something like:
+
+<img src="https://github.com/FrankSunChenfan/CodeU/blob/master/pics/GUI_Simple.png" alt="GUI Simple">
 
 ### Installation Related
-This one has no detailed explanation, but will probably required some research on the permission system on Android System. I personally don't think auto installation will be allowed on Android. The auto installation is defined as something like "sudo apt-get install -y docker". The auto installation will probably need root permission in order to be functional - which we can definitely dig into.
+This one has no detailed explanation, but will probably required some research on the permission system of Android. I personally don't think auto installation will be allowed on Android. The auto installation is defined as something like "sudo apt-get install -y docker". The auto installation will probably need root permission in order to be functional - which we can definitely dig into.
 
 A step-back solution will be our program shows the permission info page like the below image, and then user just need to press "confirm" so that the installation process will be started. 
 
