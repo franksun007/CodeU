@@ -12,7 +12,13 @@ First part is the file transferring part between Android Device and machine. **S
 
 <img src="https://github.com/FrankSunChenfan/CodeU/blob/master/pics/High_Level_Thoughts.png" alt="File Transferring Ideas" width="634" height="324" border="10" />
 
-The above image shows the general and easiest idea to transfer a file from host machine to device. There is one thing might need to be keep in mind -  
+The above image shows the general and easiest idea to transfer a file from host machine to device. 
+
+#### Note about Lightweight httpd
+There is something on the internet called [nanohttpd](https://github.com/NanoHttpd/nanohttpd). We can definitely modified the code in order to satisfy our own usage. The project itself even has a file server written for us (I think). 
+
+========================================================
+There is one thing might need to be keep in mind -  
 the energy consumption issue - normal server will take a lot of energy in order to become functional. We certainly won't do something fancy like a node js server. That part needs some research and trying to figure out a lightweight solution but reliable architecture. 
 
 ### File Management 
