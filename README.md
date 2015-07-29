@@ -40,7 +40,18 @@ My thoughts for the GUI designed will be something like:
 ### Installation Related
 This one has no detailed explanation, but will probably required some research on the permission system of Android. I personally don't think auto installation will be allowed on Android. The auto installation is defined as something like "sudo apt-get install -y docker". The auto installation will probably need root permission in order to be functional - which we can definitely dig into.
 
+#### Note about Auto Installation
+I digged a little bit about the auto installation part. I searched some Chinese threads about this technology. The specific link can be found [here](http://www.infoq.com/cn/articles/android-accessibility-installing). Unfortunately I cannot find any resources in English. But I can explain the basic idea. 
+
+This functionality is achieved by using **Android Accessibility**. The [Android Accessibility](http://developer.android.com/design/patterns/accessibility.html) is developed for the purpose of help people with special need to enjoy the Android. 
+
+The idea of using it to achieve the functionality of auto install is that you first open the apk file transferred. And then, grab the UI component of the permission page. Using the Accessibility tool to simulate a click on "accept" button, and now your app will be auto installed. 
+
+The above is just the big idea in a nutshell. I think we can definitely achieve this functionality and actually implement in our app. However, if we seriously decided to do so, we need to consider about the security issue very carefully. As auto install is enabled without an authorization system - anyone can transfer some unexpected apps to the phone.
+
+========================================================
 A step-back solution will be our program shows the permission info page like the below image, and then user just need to press "confirm" so that the installation process will be started. 
 
 <img src="http://www.androidpolice.com/wp-content/uploads/2013/07/nexusae0_wm_2013-07-25-12.51.491.png" alt="Permission info" height="853" width="512">
+
 
