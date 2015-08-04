@@ -23,8 +23,11 @@ public class MyServer extends NanoHTTPD{
     public static final int PORT = 6379;
     public static final String TAG = "ApkTransfer";
 
-    public MyServer() throws IOException {
+    private String storagePath;
+
+    public MyServer(String storagePath) throws IOException {
         super(PORT);
+        this.storagePath = storagePath;
     }
 
     public Response serve(String uri,
@@ -39,10 +42,7 @@ public class MyServer extends NanoHTTPD{
         Log.i(TAG, "PATH of the temp file is at " + path);
         File src = new File(path);
 
-        String basePath = Environment
-                .getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
-                .getAbsolutePath();
-        File dst = new File(basePath + "/" + fileName);
+        File dst = new File(storagePath + "/" + fileName);
         try {
             copy(src, dst);
         } catch (Exception e) {

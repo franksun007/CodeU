@@ -18,19 +18,33 @@ import fi.iki.elonen.NanoHTTPD;
 public class MainActivity extends ActionBarActivity {
 
     public static final String TAG = "ApkTransfer";
+    public static final String FOLDER_NAME = "apktransfer";
 
     private boolean flipflop;
-    public NanoHTTPD webserver;
+    private NanoHTTPD webserver;
+    private String storagePath;
 
     public MainActivity() {
         flipflop = true;
         webserver = null;
+        storagePath = "";
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
+            String basePath = Environment
+                    .getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
+                    .getAbsolutePath();
+            storagePath = basePath + "/" + FOLDER_NAME;
+            File directory = new File(storagePath);
+            if(!directory.isDirectory())
+                directory.mkdirs();
+        }
+
     }
 
 
@@ -80,7 +94,7 @@ public class MainActivity extends ActionBarActivity {
 
     public NanoHTTPD createServer() {
         try {
-            return new MyServer();
+            return new MyServer(storagePath);
         } catch (Exception e){
             Log.e(TAG, e.toString());
         }
