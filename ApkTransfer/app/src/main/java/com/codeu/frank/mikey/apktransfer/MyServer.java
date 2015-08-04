@@ -20,12 +20,11 @@ import fi.iki.elonen.NanoHTTPD;
  * Created by chenfs on 8/3/15.
  */
 public class MyServer extends NanoHTTPD{
-    public static final int PORT = 6379;
     public static final String TAG = "ApkTransfer";
 
     private String storagePath;
 
-    public MyServer(String storagePath) throws IOException {
+    public MyServer(String storagePath, int PORT) throws IOException {
         super(PORT);
         this.storagePath = storagePath;
     }

@@ -10,6 +10,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import java.io.File;
 
@@ -19,6 +20,7 @@ public class MainActivity extends ActionBarActivity {
 
     public static final String TAG = "ApkTransfer";
     public static final String FOLDER_NAME = "apktransfer";
+    public static final int PORT = 6379;
 
     private boolean flipflop;
     private NanoHTTPD webserver;
@@ -88,13 +90,25 @@ public class MainActivity extends ActionBarActivity {
             // Next click will turn it on
             serverButton.setText("Start Server");
             webserver.stop();
+            TextView tv = (TextView) findViewById(R.id.sinfo);
+            tv.setText(R.string.server_info);
         }
         flipflop = !flipflop;
     }
 
     public NanoHTTPD createServer() {
         try {
-            return new MyServer(storagePath);
+            TextView tv = (TextView) findViewById(R.id.sinfo);
+            WifiManager wm = (WifiManager) getSystemService(WIFI_SERVICE);
+            String ip = Formatter.formatIpAddress(wm.getConnectionInfo().getIpAddress());
+            String tvtext = "Server Info: \n" +
+                    "IP: " + ip + " \n" +
+                    "PORT: " + PORT + "\n" +
+                    "SAMPLE COMMAND: \n" +
+                    "curl -v -F key1=value1 -F upload=@<File> \\\n" +
+                    "\"http://" + ip + ":" + PORT + "\"";
+            tv.setText(tvtext);
+            return new MyServer(storagePath, PORT);
         } catch (Exception e){
             Log.e(TAG, e.toString());
         }
