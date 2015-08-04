@@ -13,15 +13,14 @@ import android.widget.Button;
 
 import java.io.File;
 
-import fi.iki.elonen.SimpleWebServer;
+import fi.iki.elonen.NanoHTTPD;
 
 public class MainActivity extends ActionBarActivity {
 
     public static final String TAG = "ApkTransfer";
-    public static final int PORT = 6379;
 
     private boolean flipflop;
-    public SimpleWebServer webserver;
+    public NanoHTTPD webserver;
 
     public MainActivity() {
         flipflop = true;
@@ -79,12 +78,12 @@ public class MainActivity extends ActionBarActivity {
         flipflop = !flipflop;
     }
 
-    public SimpleWebServer createServer() {
-        WifiManager wm = (WifiManager) getSystemService(WIFI_SERVICE);
-        String ip = Formatter.formatIpAddress(wm.getConnectionInfo().getIpAddress());
-        File f = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
-        Log.i(TAG, ip);
-        Log.i(TAG, f.toString());
-        return new SimpleWebServer(ip, PORT, f, false);
+    public NanoHTTPD createServer() {
+        try {
+            return new MyServer();
+        } catch (Exception e){
+            Log.e(TAG, e.toString());
+        }
+        return null;
     }
 }
