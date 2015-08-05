@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">ApkTransfer</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="button_start_server">Start Server</string>
+    <string name="server_info">Server Info: [Server not running]</string>
+    <string name="file_manager">Access File Manager</string>
+</resources>
