@@ -105,13 +105,17 @@ public class MainActivity extends ActionBarActivity {
                     "IP: " + ip + " \n" +
                     "PORT: " + PORT + "\n" +
                     "SAMPLE COMMAND: \n" +
-                    "curl -v -F key1=value1 -F upload=@<File> \\\n" +
+                    "curl -v -F upload=@<File> \\\n" +
                     "\"http://" + ip + ":" + PORT + "\"";
             tv.setText(tvtext);
-            return new MyServer(storagePath, PORT);
+            return new MyServer(storagePath, PORT, ip);
         } catch (Exception e){
             Log.e(TAG, e.toString());
         }
         return null;
+    }
+
+    public void startFileManager(View view) {
+        
     }
 }

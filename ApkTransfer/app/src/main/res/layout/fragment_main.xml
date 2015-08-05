@@ -19,5 +19,11 @@
         android:text="@string/server_info"
         android:id="@+id/sinfo"
         android:fontFamily="sans-serif-medium" />
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/file_manager"
+        android:id="@+id/filemanager"
+        android:onClick="startFileManager"/>
 
 </LinearLayout>
