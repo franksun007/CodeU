@@ -31,4 +31,10 @@
         android:id="@+id/sinfo"
         android:fontFamily="sans-serif-medium" />
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/serverwarning"
+        android:fontFamily="sans-serif-medium" />
+
 </LinearLayout>

@@ -2,6 +2,7 @@ package com.codeu.frank.mikey.apktransfer;
 
 
 import android.util.Log;
+import android.widget.TextView;
 
 /**
  * Created by chenfs on 8/6/15.
@@ -91,6 +92,11 @@ public class MyServerGlobal {
                     Log.e(TAG, "Seriously, shit happened");
                 }
                 server = setUpServer(storagePath, ip, port);
+                startServer(storagePath, ip, port);
+                serverInfo += "\n" +
+                        "Server configuration just changed\n" +
+                        "The info above might now be accurate\n" +
+                        "Please restart the server";
             }
         } else {
             // If there is no server, we set one up.
