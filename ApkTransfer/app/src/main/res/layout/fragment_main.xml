@@ -10,7 +10,7 @@
     tools:showIn="@layout/activity_main"
     android:orientation="vertical"
     android:id="@+id/fragment_main">
-    
+
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

@@ -8,29 +8,26 @@ import android.util.Log;
  */
 public class MyServerGlobal {
 
+    // Our glorious server
     private static MyServer server = null;
+    // Whether the server is running
     private static Boolean running = null;
+    // Get the server information
     private static String serverInfo = null;
 
-//    private static MyServerGlobal mInstance = null;
-//
     public static final String TAG = "ApkTransfer";
-//
-//    private String storagePath = null;
-//    private Integer port = null;
-//    private String ip = null;
-//
-//    private static NanoHTTPD server = null;
-//
 
+    // Return whether the server is running to the user.
     public static boolean getServerStatus() {
         return running;
     }
 
+    // Return the current server information to the user.
     public static String getServerInfo() {
         return serverInfo;
     }
 
+    // Start the glorious server.
     public static void startServer(String storagePath, String ipAddr, int port) {
         try {
             running = true;
@@ -47,6 +44,7 @@ public class MyServerGlobal {
         }
     }
 
+    // Stop the glorious server
     public static void stopServer() {
         try {
             running = false;
@@ -59,6 +57,7 @@ public class MyServerGlobal {
         }
     }
 
+    // Initialize the server with the essential parameters
     private static MyServer setUpServer(String storagePath, String ip, int port) {
         try {
             return new MyServer(storagePath, port, ip);
@@ -67,12 +66,8 @@ public class MyServerGlobal {
             return null;
         }
     }
-//
-//    public static NanoHTTPD getServer() {
-//        return server;
-//    }
-//
 
+    // User end initialize call.
     public static void init(String storagePath, String ip, int port) {
         if (server != null) {
             boolean unchanged = true;
@@ -85,6 +80,10 @@ public class MyServerGlobal {
                     break;
                 }
             }
+
+            // If something has changed like IP ADDR, then we update the server
+            // basically we shut down the current one and then set a new one up
+            // ** Mem usage is totally given to Garbage Collector. Just pray
             if (!unchanged) {
                 try {
                     server.stop();
@@ -94,11 +93,16 @@ public class MyServerGlobal {
                 server = setUpServer(storagePath, ip, port);
             }
         } else {
+            // If there is no server, we set one up.
             server = setUpServer(storagePath, ip, port);
         }
+
+        // If there is no status of the server, then server is not running
         if (running == null) {
             running = false;
         }
+
+        // If there is no server info, we initialize the server info
         if (serverInfo == null) {
             serverInfo = "Server Info: \n" +
                     "[Server not running]";
@@ -108,39 +112,4 @@ public class MyServerGlobal {
         Log.i(TAG, "running? " + running);
         Log.i(TAG, "Server info: " + serverInfo);
     }
-
-//    public void init(String storagePath, int port, String ip) {
-//        if (this.storagePath == null && this.port == null && this.ip == null) {
-//            this.storagePath = storagePath;
-//            this.port = port;
-//            this.ip = ip;
-//            server = fireUpServer(this.storagePath, this.port, this.ip);
-//        } else {
-//            boolean unchanged = true;
-//
-//            if(!this.storagePath.equals(storagePath))
-//                unchanged = stopServer();
-//
-//            if ((this.port) != port)
-//                unchanged = stopServer();
-//
-//            if(!this.ip.equals(ip))
-//                unchanged = stopServer();
-//
-//            if (!unchanged) {
-//                this.storagePath = storagePath;
-//                this.port = port;
-//                this.ip = ip;
-//            }
-//        }
-//    }
-//
-//    public boolean stopServer() {
-//        try {
-//            server.stop();
-//        } catch (Exception e) {
-//            Log.e(TAG, "Seriously, shit happened");
-//        }
-//        return false;
-//    }
 }

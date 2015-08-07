@@ -20,16 +20,21 @@ public class MainActivity extends ActionBarActivity {
 
     public static final String SERVER_STATUS = "com.codeu.frank.mikey.apktransfer.SERVER_STATUS";
     public static final String TAG = "ApkTransfer";
+    // The folder that we will store our data/file
     public static final String FOLDER_NAME = "apktransfer";
+    // The port that the server will use
     public static final int PORT = 6379;
 
+    // Ip addr of the device
     private String ipAddr;
+    // The storage path
     private String storagePath;
 
     public MainActivity() {
         storagePath = Environment
                 .getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
                 .getAbsolutePath() + "/" + FOLDER_NAME;
+        ipAddr = null;
     }
 
     @Override
@@ -37,17 +42,21 @@ public class MainActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        WifiManager wm = (WifiManager) getSystemService(WIFI_SERVICE);
-        ipAddr = Formatter.formatIpAddress(wm.getConnectionInfo().getIpAddress());
-
-        MyServerGlobal.init(storagePath, ipAddr, PORT);
-
+        // Is there a folder exist? If not we create one. If yes we dont do anything
         if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
             File directory = new File(storagePath);
             if (!directory.isDirectory())
                 directory.mkdirs();
         }
 
+        // Get the ip address of the device
+        WifiManager wm = (WifiManager) getSystemService(WIFI_SERVICE);
+        ipAddr = Formatter.formatIpAddress(wm.getConnectionInfo().getIpAddress());
+
+        // Initialize our server.
+        MyServerGlobal.init(storagePath, ipAddr, PORT);
+
+        // Something like a initial setting
         TextView tv = (TextView) findViewById(R.id.sinfo);
         Button serverButton = (Button) findViewById(R.id.button);
         tv.setText(MyServerGlobal.getServerInfo());
@@ -84,11 +93,18 @@ public class MainActivity extends ActionBarActivity {
     public void controlServer(View view) {
         Button serverButton = (Button) findViewById(R.id.button);
         TextView tv = (TextView) findViewById(R.id.sinfo);
+        // If the server is not running -
         if (!MyServerGlobal.getServerStatus()) {
             // Set the server button to display that server is running
             // Next click will turn it off
             Log.i(TAG, "Server is running");
             serverButton.setText("Stop Server");
+
+            // For switching the networks
+            WifiManager wm = (WifiManager) getSystemService(WIFI_SERVICE);
+            ipAddr = Formatter.formatIpAddress(wm.getConnectionInfo().getIpAddress());
+            MyServerGlobal.init(storagePath, ipAddr, PORT);
+
             MyServerGlobal.startServer(storagePath, ipAddr, PORT);
         } else {
             // Set the server button to display that server is off
