@@ -33,6 +33,12 @@ public class MyServer extends NanoHTTPD{
         this.ipAddr = ip;
     }
 
+    public String[] getParms() {
+        String port_string = "" + port;
+        String[] result = {storagePath, ipAddr, port_string};
+        return result;
+    }
+
     public Response serve(String uri,
                           Method method,
                           Map<String, String> headers,
