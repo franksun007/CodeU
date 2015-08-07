@@ -18,7 +18,6 @@ import java.io.File;
 
 public class MainActivity extends ActionBarActivity {
 
-    public static final String SERVER_STATUS = "com.codeu.frank.mikey.apktransfer.SERVER_STATUS";
     public static final String TAG = "ApkTransfer";
     // The folder that we will store our data/file
     public static final String FOLDER_NAME = "apktransfer";
@@ -119,10 +118,10 @@ public class MainActivity extends ActionBarActivity {
     public void startFileManager(View view) {
         Log.i(TAG, "start FileManager");
         Intent intent = new Intent(this, FileManager.class);
-        String serverStatus = "Server is running.";
-        if (MyServerGlobal.getServerStatus())
-            serverStatus = "Server is not running.";
-        intent.putExtra(SERVER_STATUS, serverStatus);
+        String serverStatus = "Server is running!";
+        if (!MyServerGlobal.getServerStatus())
+            serverStatus = "Server is not running";
+        intent.putExtra(getString(R.string.server_status_intent_bridge), serverStatus);
         startActivity(intent);
     }
 }

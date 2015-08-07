@@ -8,6 +8,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 public class FileManager extends ActionBarActivity {
 
@@ -15,6 +16,9 @@ public class FileManager extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_file_manager);
+        String serverStatus = getIntent().getStringExtra(getString(R.string.server_status_intent_bridge));
+        TextView warning = (TextView) findViewById(R.id.warning_server_status);
+        warning.setText("Info - " + serverStatus);
     }
 
     @Override
