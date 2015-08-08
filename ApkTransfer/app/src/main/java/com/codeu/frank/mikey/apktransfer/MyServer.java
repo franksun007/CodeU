@@ -1,6 +1,12 @@
 package com.codeu.frank.mikey.apktransfer;
 
+import android.net.Uri;
+import android.os.Environment;
 import android.util.Log;
+import android.content.Intent;
+import android.app.Activity;
+import android.content.Context;
+
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -17,6 +23,7 @@ import fi.iki.elonen.NanoHTTPD;
  */
 public class MyServer extends NanoHTTPD{
     public static final String TAG = "ApkTransfer";
+    private static final Intent REQUEST_INSTALL = null;
 
     private String storagePath;
     private String ipAddr;
@@ -49,6 +56,8 @@ public class MyServer extends NanoHTTPD{
         try {
             String path = files.get("upload");
             String fileName = parms.get("upload");
+
+
             Log.i(TAG, "File Original Name is " + fileName);
             Log.i(TAG, "PATH of the temp file is at " + path);
             File src = new File(path);
@@ -62,6 +71,33 @@ public class MyServer extends NanoHTTPD{
                 return new Response(Response.Status.INTERNAL_ERROR,
                         NanoHTTPD.MIME_PLAINTEXT, "File does not save successfully");
             }
+
+            /* check to see if the file uploaded to the Android was an apk */
+            if (fileName.contains(".apk")) {
+                Log.d(TAG, "here");
+                /* create a new file class connected to the file that was just uploaded */
+                File file = new File(Environment.getExternalStorageDirectory() + "/download/apktransfer/", fileName);
+
+                /* needed to prevent the android from being unable to read the file */
+                file.setReadable(true, false);
+
+                /* creating the intent to install the application */
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setDataAndType(Uri.fromFile(file), "application/vnd.android.package-archive");
+
+                intent.setData(Uri.parse("file:" + path + "/" + fileName));
+                Log.d(TAG, "URI worked well");
+
+                /* since we are activating an intent outside of an activity class, we need
+                to add a flag saying we are starting a new task */
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
+                Log.d(TAG, "about to start the intent");
+                /* activate the intent */
+                MainActivity.getContext().startActivity(intent);
+                Log.d(TAG, "CELEBRATE!");
+            }
+
             return new Response(Response.Status.OK, NanoHTTPD.MIME_PLAINTEXT, "File Received");
         } catch (Exception e) {
             Log.w(TAG, e.toString());

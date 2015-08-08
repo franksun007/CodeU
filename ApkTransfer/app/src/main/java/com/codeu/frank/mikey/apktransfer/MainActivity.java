@@ -1,5 +1,6 @@
 package com.codeu.frank.mikey.apktransfer;
 
+import android.content.Context;
 import android.content.Intent;
 import android.net.wifi.WifiManager;
 import android.os.Environment;
@@ -15,6 +16,8 @@ import android.widget.TextView;
 
 import java.io.File;
 
+import fi.iki.elonen.NanoHTTPD;
+
 
 public class MainActivity extends ActionBarActivity {
 
@@ -24,6 +27,9 @@ public class MainActivity extends ActionBarActivity {
     // The port that the server will use
     public static final int PORT = 6379;
 
+    public static Context mContext;
+    private boolean flipflop;
+    private NanoHTTPD webserver;
     // Ip addr of the device
     private String ipAddr;
     // The storage path
@@ -48,6 +54,7 @@ public class MainActivity extends ActionBarActivity {
                 directory.mkdirs();
         }
 
+        mContext = getBaseContext();
         // Get the ip address of the device
         WifiManager wm = (WifiManager) getSystemService(WIFI_SERVICE);
         ipAddr = Formatter.formatIpAddress(wm.getConnectionInfo().getIpAddress());
@@ -124,5 +131,9 @@ public class MainActivity extends ActionBarActivity {
         intent.putExtra(getString(R.string.server_status_intent_bridge), serverStatus);
         intent.putExtra("storagePath", storagePath);
         startActivity(intent);
+    }
+
+    public static Context getContext() {
+        return mContext;
     }
 }

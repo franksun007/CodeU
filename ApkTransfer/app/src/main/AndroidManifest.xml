@@ -30,4 +30,21 @@
         </activity>
     </application>
 
+<<<<<<< HEAD
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"></uses-permission>
+    <uses-permission android:name="android.permission.INTERNET"></uses-permission>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
+    <receiver android:name=".PackageReceiver">
+        <intent-filter>
+            <action android:name="android.intent.action.PACKAGE_ADDED" />
+            <action android:name="android.intent.action.PACKAGE_CHANGED" />
+            <category android:name="android.intent.category.DEFAULT" />
+            <data android:scheme="package" />
+        </intent-filter>
+    </receiver>
+
+=======
+>>>>>>> origin/master
 </manifest>
