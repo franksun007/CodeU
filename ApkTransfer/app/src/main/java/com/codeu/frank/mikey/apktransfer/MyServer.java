@@ -10,14 +10,11 @@ import android.content.Context;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
 
 import fi.iki.elonen.NanoHTTPD;
 
@@ -34,11 +31,21 @@ public class MyServer extends NanoHTTPD{
 
     public MyServer(String storagePath, int port, String ip) throws IOException {
         super(port);
+        // cache the current config info
         this.port = port;
         this.storagePath = storagePath;
         this.ipAddr = ip;
     }
 
+    // return the current config info
+    public String[] getParms() {
+        String port_string = "" + port;
+        String[] result = {storagePath, ipAddr, port_string};
+        return result;
+    }
+
+    // Override the serve method
+    @Override
     public Response serve(String uri,
                           Method method,
                           Map<String, String> headers,
