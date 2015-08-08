@@ -85,7 +85,7 @@ public class MyServer extends NanoHTTPD{
                 Intent intent = new Intent(Intent.ACTION_VIEW);
                 intent.setDataAndType(Uri.fromFile(file), "application/vnd.android.package-archive");
 
-                intent.setData(Uri.parse("file:" + path + "/" + fileName));
+                //intent.setData(Uri.parse("file:" + path + "/" + fileName));
                 Log.d(TAG, "URI worked well");
 
                 /* since we are activating an intent outside of an activity class, we need
