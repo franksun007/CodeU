@@ -122,6 +122,7 @@ public class MainActivity extends ActionBarActivity {
         if (!MyServerGlobal.getServerStatus())
             serverStatus = "Server is not running";
         intent.putExtra(getString(R.string.server_status_intent_bridge), serverStatus);
+        intent.putExtra("storagePath", storagePath);
         startActivity(intent);
     }
 }
