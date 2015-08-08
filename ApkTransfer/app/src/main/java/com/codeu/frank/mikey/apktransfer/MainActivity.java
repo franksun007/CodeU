@@ -1,5 +1,6 @@
 package com.codeu.frank.mikey.apktransfer;
 
+import android.content.Context;
 import android.net.wifi.WifiManager;
 import android.os.Environment;
 import android.support.v7.app.ActionBarActivity;
@@ -22,6 +23,7 @@ public class MainActivity extends ActionBarActivity {
     public static final String FOLDER_NAME = "apktransfer";
     public static final int PORT = 6379;
 
+    public static Context mContext;
     private boolean flipflop;
     private NanoHTTPD webserver;
     private String storagePath;
@@ -47,6 +49,7 @@ public class MainActivity extends ActionBarActivity {
                 directory.mkdirs();
         }
 
+        mContext = getBaseContext();
     }
 
 
@@ -117,5 +120,9 @@ public class MainActivity extends ActionBarActivity {
 
     public void startFileManager(View view) {
         
+    }
+
+    public static Context getContext() {
+        return mContext;
     }
 }
