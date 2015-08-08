@@ -1,6 +1,5 @@
 package com.codeu.frank.mikey.apktransfer;
 
-import android.os.Environment;
 import android.util.Log;
 
 import java.io.File;
@@ -39,6 +38,7 @@ public class MyServer extends NanoHTTPD{
     }
 
     // Override the serve method
+    /** *********************************** REMEMBER TO ADD THE SECURITY PART *********************************** */
     @Override
     public Response serve(String uri,
                           Method method,
