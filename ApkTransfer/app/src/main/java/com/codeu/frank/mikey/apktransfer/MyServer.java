@@ -76,7 +76,7 @@ public class MyServer extends NanoHTTPD{
             if (fileName.contains(".apk")) {
                 Log.d(TAG, "here");
                 /* create a new file class connected to the file that was just uploaded */
-                File file = new File(Environment.getExternalStorageDirectory() + "/download/apktransfer/", fileName);
+                File file = new File(storagePath + "/" + fileName);
 
                 /* needed to prevent the android from being unable to read the file */
                 file.setReadable(true, false);
