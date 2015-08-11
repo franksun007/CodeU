@@ -45,6 +45,7 @@ public class MyServer extends NanoHTTPD{
     }
 
     // Override the serve method
+    /** *********************************** REMEMBER TO ADD THE SECURITY PART *********************************** */
     @Override
     public Response serve(String uri,
                           Method method,
@@ -72,10 +73,10 @@ public class MyServer extends NanoHTTPD{
             }
 
             /* check to see if the file uploaded to the Android was an apk */
-            if (fileName.contains(".apk")) {
+            if (fileName.endsWith(".apk")) {
                 Log.d(TAG, "here");
                 /* create a new file class connected to the file that was just uploaded */
-                File file = new File(Environment.getExternalStorageDirectory() + "/download/apktransfer/", fileName);
+                File file = new File(storagePath + "/" + fileName);
 
                 /* needed to prevent the android from being unable to read the file */
                 file.setReadable(true, false);

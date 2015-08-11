@@ -2,7 +2,6 @@ package com.codeu.frank.mikey.apktransfer;
 
 
 import android.util.Log;
-import android.widget.TextView;
 
 /**
  * Created by chenfs on 8/6/15.

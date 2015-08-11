@@ -5,4 +5,5 @@
     <string name="button_start_server">Start Server</string>
     <string name="file_manager">Access File Manager</string>
     <string name="title_activity_file_manager">File Manager</string>
+    <string name="server_status_intent_bridge">com.codeu.frank.mikey.apktransfer.SERVER_STATUS</string>
 </resources>
