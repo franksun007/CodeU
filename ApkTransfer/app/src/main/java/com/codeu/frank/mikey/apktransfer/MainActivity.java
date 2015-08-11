@@ -30,8 +30,10 @@ public class MainActivity extends ActionBarActivity {
     public static Context mContext;
     private boolean flipflop;
     private NanoHTTPD webserver;
+
     // Ip addr of the device
     private String ipAddr;
+
     // The storage path
     private String storagePath;
 

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/id_delete"
+        android:title="@string/title_delete"></item>
+    <item
+        android:id="@+id/id_move"
+        android:title="@string/title_move"></item>
+    <item
+        android:id="@+id/id_install"
+        android:title="@string/title_install"></item>
+</menu>
