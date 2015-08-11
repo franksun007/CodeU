@@ -18,7 +18,7 @@ public class RandomStringGenerator {
     private List<Character> range;                  // Range of the randomness
     private Random r;                               // Random Obj for random number
     public static final int LENGTH = 6;             // Length
-    public static final String TAG = "apktransfer";
+    public static final String TAG = "ApkTransfer";
 
     public RandomStringGenerator() {
         r = new Random();
