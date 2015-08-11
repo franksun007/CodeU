@@ -19,7 +19,6 @@ import fi.iki.elonen.NanoHTTPD;
  */
 public class MyServer extends NanoHTTPD{
     public static final String TAG = "ApkTransfer";
-    private static final Intent REQUEST_INSTALL = null;
 
     private String storagePath;
     private String ipAddr;
