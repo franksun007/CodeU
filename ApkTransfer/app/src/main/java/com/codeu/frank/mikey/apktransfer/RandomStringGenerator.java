@@ -8,12 +8,16 @@ import java.util.Random;
 
 /**
  * Created by chenfs on 8/11/15.
+ *
+ * This class is created and funtioning as a security code generator.
+ * The only funtion will return a random string with length 6.
  */
+
 public class RandomStringGenerator {
 
-    public List<Character> range;
-    public Random r;
-    public static final int LENGTH = 6;
+    private List<Character> range;                  // Range of the randomness
+    private Random r;                               // Random Obj for random number
+    public static final int LENGTH = 6;             // Length
     public static final String TAG = "apktransfer";
 
     public RandomStringGenerator() {
@@ -31,6 +35,7 @@ public class RandomStringGenerator {
         Log.i(TAG, range.toString());
     }
 
+    // Return a String with length 6 from A-Z a-z 0-9
     public String generateString() {
         StringBuilder builder = new StringBuilder();
         for (int i = 0; i < LENGTH; i++) {
