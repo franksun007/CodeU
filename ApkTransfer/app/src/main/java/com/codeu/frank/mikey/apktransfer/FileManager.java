@@ -46,17 +46,18 @@ public class FileManager extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_file_manager);
 
-        //list_options = (ListView) findViewById(R.id.list_options);
-        //registerForContextMenu(list_options);
-
         serverStatus = getIntent().getStringExtra(getString(R.string.server_status_intent_bridge));
         storagePath = getIntent().getStringExtra("storagePath");
 
         Log.i(TAG, "Finding Warning TextView");
         TextView warning = (TextView) findViewById(R.id.warning_server_status);
-        warning.setText("Info - " + serverStatus);
+        warning.setText(serverStatus);
         Log.i(TAG, "Finish Finding Warning TextView");
 
+        setupFileListandBindListener();
+    }
+
+    public void setupFileListandBindListener() {
         Log.i(TAG, "Grabbing the files");
         File f = new File(storagePath);
         Log.i(TAG, "Listing the files");
@@ -77,7 +78,7 @@ public class FileManager extends ActionBarActivity {
         listView.setAdapter(adapter);
 
         Log.d(TAG, "here");
-        
+
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -114,6 +115,8 @@ public class FileManager extends ActionBarActivity {
         } catch (Exception e) {
             Log.e("tag", e.getMessage());
         }
+
+        setupFileListandBindListener();
     }
 
     private void installItem(long id) {
@@ -126,6 +129,7 @@ public class FileManager extends ActionBarActivity {
         TextView tv = (TextView) listView.findViewById(android.R.id.text1);
         String info = tv.getText().toString();
         Log.d(TAG, info);
+        setupFileListandBindListener();
     }
 
     @Override
