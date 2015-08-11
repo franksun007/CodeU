@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -79,6 +80,7 @@ public class MainActivity extends ActionBarActivity {
                     "If you are pretty sure you are connected \n" +
                     "try restart the app.");
         }
+
     }
 
     @Override
@@ -138,9 +140,9 @@ public class MainActivity extends ActionBarActivity {
     public void startFileManager(View view) {
         Log.i(TAG, "start FileManager");
         Intent intent = new Intent(this, FileManager.class);
-        String serverStatus = "Server is running!";
+        String serverStatus = "Server - Running  \nCUR_DIR=/Download/" + FOLDER_NAME + "/";
         if (!MyServerGlobal.getServerStatus())
-            serverStatus = "Server is not running";
+            serverStatus = "Server - Not Running  \nCUR_DIR=/Download/" + FOLDER_NAME + "/";
         intent.putExtra(getString(R.string.server_status_intent_bridge), serverStatus);
         intent.putExtra("storagePath", storagePath);
         startActivity(intent);
