@@ -74,15 +74,14 @@ public class FileManager extends ActionBarActivity {
 
         listView.setAdapter(adapter);
 
-        /*OnItemClickListener itemClickListener = new OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View container, int position, long id) {
-                container.showContextMenu();
-            }
-        };*/
-
         Log.d(TAG, "here");
-        //listView.setOnClickListener((View.OnClickListener) itemClickListener);
+        
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                view.showContextMenu();
+            }
+        });
     }
 
     @Override
