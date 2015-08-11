@@ -19,8 +19,10 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.AdapterView.AdapterContextMenuInfo;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -82,6 +84,49 @@ public class FileManager extends ActionBarActivity {
                 view.showContextMenu();
             }
         });
+    }
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
+        switch (item.getItemId()) {
+            case R.id.id_delete:
+                deleteItem(info.id);
+                return true;
+            case R.id.id_install:
+                installItem(info.id);
+                return true;
+            case R.id.id_move:
+                moveItem(info.id);
+                return true;
+            default:
+                return super.onContextItemSelected(item);
+        }
+    }
+
+    private void deleteItem(long id) {
+        TextView tv = (TextView) listView.findViewById(android.R.id.text1);
+        String info = tv.getText().toString();
+        Log.d(TAG, info);
+
+        try {
+            // delete the original file
+            new File(storagePath + "/" + info).delete();
+        } catch (Exception e) {
+            Log.e("tag", e.getMessage());
+        }
+    }
+
+    private void installItem(long id) {
+        TextView tv = (TextView) listView.findViewById(android.R.id.text1);
+        String info = tv.getText().toString();
+        Log.d(TAG, info);
+    }
+
+    private void moveItem(long id) {
+        TextView tv = (TextView) listView.findViewById(android.R.id.text1);
+        String info = tv.getText().toString();
+        Log.d(TAG, info);
     }
 
     @Override
