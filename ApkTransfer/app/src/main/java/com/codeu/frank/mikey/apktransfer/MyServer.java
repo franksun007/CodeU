@@ -1,12 +1,8 @@
 package com.codeu.frank.mikey.apktransfer;
 
 import android.net.Uri;
-import android.os.Environment;
 import android.util.Log;
 import android.content.Intent;
-import android.app.Activity;
-import android.content.Context;
-
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -39,6 +35,7 @@ public class MyServer extends NanoHTTPD{
         this.security = null;
     }
 
+    // Accepting and updating the security from the MyServerGlobal
     public void updateSecurity(String security) {
         this.security = security;
     }

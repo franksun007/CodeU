@@ -34,6 +34,7 @@ public class MyServerGlobal {
         try {
             running = true;
             String security = randomStringGenerator.generateString();
+            // Function update the security code of the server.
             server.updateSecurity(security);
             server.start();
             serverInfo = "Server Info: \n" +
