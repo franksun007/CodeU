@@ -91,7 +91,7 @@ public class FileManager extends ActionBarActivity {
         AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
         switch (item.getItemId()) {
             case R.id.id_delete:
-                deleteItem(info.id);
+                deleteItem((TextView) info.targetView);
                 return true;
             case R.id.id_install:
                 installItem(info.id);
@@ -104,9 +104,8 @@ public class FileManager extends ActionBarActivity {
         }
     }
 
-    private void deleteItem(long id) {
-        TextView tv = (TextView) listView.findViewById(android.R.id.text1);
-        String info = tv.getText().toString();
+    private void deleteItem(TextView view) {
+        String info = view.getText().toString();
         Log.d(TAG, info);
 
         try {
