@@ -1,12 +1,8 @@
 package com.codeu.frank.mikey.apktransfer;
 
 import android.net.Uri;
-import android.os.Environment;
 import android.util.Log;
 import android.content.Intent;
-import android.app.Activity;
-import android.content.Context;
-
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -23,11 +19,11 @@ import fi.iki.elonen.NanoHTTPD;
  */
 public class MyServer extends NanoHTTPD{
     public static final String TAG = "ApkTransfer";
-    private static final Intent REQUEST_INSTALL = null;
 
     private String storagePath;
     private String ipAddr;
     private int port;
+    private String security;
 
     public MyServer(String storagePath, int port, String ip) throws IOException {
         super(port);
@@ -35,6 +31,12 @@ public class MyServer extends NanoHTTPD{
         this.port = port;
         this.storagePath = storagePath;
         this.ipAddr = ip;
+        this.security = null;
+    }
+
+    // Accepting and updating the security from the MyServerGlobal
+    public void updateSecurity(String security) {
+        this.security = security;
     }
 
     // return the current config info
@@ -45,13 +47,26 @@ public class MyServer extends NanoHTTPD{
     }
 
     // Override the serve method
-    /** *********************************** REMEMBER TO ADD THE SECURITY PART *********************************** */
     @Override
     public Response serve(String uri,
                           Method method,
                           Map<String, String> headers,
                           Map<String, String> parms,
                           Map<String, String> files) {
+
+        // Security Check
+        try {
+            String autho = parms.get("security");
+            if (!autho.equals(security)) {
+                return new Response(Response.Status.UNAUTHORIZED,
+                        NanoHTTPD.MIME_PLAINTEXT,
+                        "Wrong Password");
+            }
+        } catch (Exception e) {
+            return new Response(Response.Status.BAD_REQUEST,
+                    NanoHTTPD.MIME_PLAINTEXT,
+                    "No passwd provided");
+        }
 
         try {
             String path = files.get("upload");

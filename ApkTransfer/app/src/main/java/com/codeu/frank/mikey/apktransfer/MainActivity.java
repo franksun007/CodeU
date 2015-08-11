@@ -28,8 +28,6 @@ public class MainActivity extends ActionBarActivity {
     public static final int PORT = 6379;
 
     public static Context mContext;
-    private boolean flipflop;
-    private NanoHTTPD webserver;
 
     // Ip addr of the device
     private String ipAddr;
@@ -58,20 +56,28 @@ public class MainActivity extends ActionBarActivity {
 
         mContext = getBaseContext();
         // Get the ip address of the device
+
         WifiManager wm = (WifiManager) getSystemService(WIFI_SERVICE);
         ipAddr = Formatter.formatIpAddress(wm.getConnectionInfo().getIpAddress());
-
         // Initialize our server.
         MyServerGlobal.init(storagePath, ipAddr, PORT);
 
-        // Something like a initial setting
-        TextView tv = (TextView) findViewById(R.id.sinfo);
-        Button serverButton = (Button) findViewById(R.id.button);
-        tv.setText(MyServerGlobal.getServerInfo());
-        if (MyServerGlobal.getServerStatus()) {
-            serverButton.setText("Stop Server");
+        if (!ipAddr.equals("0.0.0.0")) {
+
+            // Something like a initial setting
+            TextView tv = (TextView) findViewById(R.id.sinfo);
+            Button serverButton = (Button) findViewById(R.id.button);
+            tv.setText(MyServerGlobal.getServerInfo());
+            if (MyServerGlobal.getServerStatus()) {
+                serverButton.setText("Stop Server");
+            } else {
+                serverButton.setText("Start Server");
+            }
         } else {
-            serverButton.setText("Start Server");
+            TextView tv = (TextView) findViewById(R.id.sinfo);
+            tv.setText("Please make sure you are connected to the Wifi\n" +
+                    "If you are pretty sure you are connected \n" +
+                    "try restart the app.");
         }
     }
 
@@ -101,27 +107,32 @@ public class MainActivity extends ActionBarActivity {
     public void controlServer(View view) {
         Button serverButton = (Button) findViewById(R.id.button);
         TextView tv = (TextView) findViewById(R.id.sinfo);
-        // If the server is not running -
-        if (!MyServerGlobal.getServerStatus()) {
-            // Set the server button to display that server is running
-            // Next click will turn it off
-            Log.i(TAG, "Server is running");
-            serverButton.setText("Stop Server");
+        if (!ipAddr.equals("0.0.0.0")) {
+            // If the server is not running -
+            if (!MyServerGlobal.getServerStatus()) {
+                // Set the server button to display that server is running
+                // Next click will turn it off
+                Log.i(TAG, "Server is running");
+                serverButton.setText("Stop Server");
 
-            // For switching the networks
-            WifiManager wm = (WifiManager) getSystemService(WIFI_SERVICE);
-            ipAddr = Formatter.formatIpAddress(wm.getConnectionInfo().getIpAddress());
-            MyServerGlobal.init(storagePath, ipAddr, PORT);
-
-            MyServerGlobal.startServer(storagePath, ipAddr, PORT);
+                // For switching the networks
+                WifiManager wm = (WifiManager) getSystemService(WIFI_SERVICE);
+                ipAddr = Formatter.formatIpAddress(wm.getConnectionInfo().getIpAddress());
+                MyServerGlobal.init(storagePath, ipAddr, PORT);
+                MyServerGlobal.startServer(storagePath, ipAddr, PORT);
+            } else {
+                // Set the server button to display that server is off
+                // Next click will turn it on
+                Log.i(TAG, "Server stopped");
+                serverButton.setText("Start Server");
+                MyServerGlobal.stopServer();
+            }
+            tv.setText(MyServerGlobal.getServerInfo());
         } else {
-            // Set the server button to display that server is off
-            // Next click will turn it on
-            Log.i(TAG, "Server stopped");
-            serverButton.setText("Start Server");
-            MyServerGlobal.stopServer();
+            tv.setText("Please make sure you are connected to the Wifi\n" +
+                    "If you are pretty sure you are connected \n" +
+                    "try restart the app.");
         }
-        tv.setText(MyServerGlobal.getServerInfo());
     }
 
     public void startFileManager(View view) {
