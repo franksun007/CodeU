@@ -52,7 +52,7 @@ public class FileManager extends ActionBarActivity {
             filename.add(file.getName());
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_list_item_1,
+                android.R.layout.simple_list_item_activated_1,
                 filename.toArray(new String[filename.size()]));
 
         ListView listView = (ListView) findViewById(R.id.list_file);
