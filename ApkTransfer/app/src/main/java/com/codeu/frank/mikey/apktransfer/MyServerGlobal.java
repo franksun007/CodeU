@@ -14,6 +14,8 @@ public class MyServerGlobal {
     private static Boolean running = null;
     // Get the server information
     private static String serverInfo = null;
+    // Random String Generator
+    private static RandomStringGenerator randomStringGenerator = null;
 
     public static final String TAG = "ApkTransfer";
 
@@ -31,12 +33,15 @@ public class MyServerGlobal {
     public static void startServer(String storagePath, String ipAddr, int port) {
         try {
             running = true;
+            String security = randomStringGenerator.generateString();
+            server.updateSecurity(security);
             server.start();
             serverInfo = "Server Info: \n" +
                     "IP: " + ipAddr + " \n" +
                     "PORT: " + port + "\n" +
                     "SAMPLE COMMAND: \n" +
                     "curl -v -F upload=@[Path to Your File] \\\n" +
+                    "-F security=\"" + security + "\" \\\n" +
                     "\"http://" + ipAddr + ":" + port + "\"";
         } catch (Exception e) {
             Log.e(TAG, e.toString());
@@ -100,6 +105,7 @@ public class MyServerGlobal {
         } else {
             // If there is no server, we set one up.
             server = setUpServer(storagePath, ip, port);
+            randomStringGenerator = new RandomStringGenerator();
         }
 
         // If there is no status of the server, then server is not running

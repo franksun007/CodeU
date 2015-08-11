@@ -28,6 +28,7 @@ public class MyServer extends NanoHTTPD{
     private String storagePath;
     private String ipAddr;
     private int port;
+    private String security;
 
     public MyServer(String storagePath, int port, String ip) throws IOException {
         super(port);
@@ -35,6 +36,11 @@ public class MyServer extends NanoHTTPD{
         this.port = port;
         this.storagePath = storagePath;
         this.ipAddr = ip;
+        this.security = null;
+    }
+
+    public void updateSecurity(String security) {
+        this.security = security;
     }
 
     // return the current config info
@@ -45,13 +51,26 @@ public class MyServer extends NanoHTTPD{
     }
 
     // Override the serve method
-    /** *********************************** REMEMBER TO ADD THE SECURITY PART *********************************** */
     @Override
     public Response serve(String uri,
                           Method method,
                           Map<String, String> headers,
                           Map<String, String> parms,
                           Map<String, String> files) {
+
+        // Security Check
+        try {
+            String autho = parms.get("security");
+            if (!autho.equals(security)) {
+                return new Response(Response.Status.UNAUTHORIZED,
+                        NanoHTTPD.MIME_PLAINTEXT,
+                        "Wrong Password");
+            }
+        } catch (Exception e) {
+            return new Response(Response.Status.BAD_REQUEST,
+                    NanoHTTPD.MIME_PLAINTEXT,
+                    "No passwd provided");
+        }
 
         try {
             String path = files.get("upload");
