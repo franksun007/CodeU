@@ -28,8 +28,10 @@ public class MainActivity extends ActionBarActivity {
     public static final int PORT = 6379;
 
     public static Context mContext;
+
     // Ip addr of the device
     private String ipAddr;
+
     // The storage path
     private String storagePath;
 

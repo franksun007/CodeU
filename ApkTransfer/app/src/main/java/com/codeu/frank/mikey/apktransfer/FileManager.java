@@ -1,17 +1,24 @@
 package com.codeu.frank.mikey.apktransfer;
 
+import android.app.ListActivity;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.AdapterView.OnItemClickListener;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -23,6 +30,9 @@ public class FileManager extends ActionBarActivity {
     private String storagePath;
     public static final String TAG = "ApkTransfer";
 
+    ListView listView;
+    ArrayAdapter<String> adapter;
+
 
     public FileManager() {
         serverStatus = null;
@@ -33,6 +43,9 @@ public class FileManager extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_file_manager);
+
+        //list_options = (ListView) findViewById(R.id.list_options);
+        //registerForContextMenu(list_options);
 
         serverStatus = getIntent().getStringExtra(getString(R.string.server_status_intent_bridge));
         storagePath = getIntent().getStringExtra("storagePath");
@@ -51,12 +64,24 @@ public class FileManager extends ActionBarActivity {
         for (File file : files)
             filename.add(file.getName());
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+
+        listView = (ListView) findViewById(R.id.list_file);
+        registerForContextMenu(listView);
+
+        adapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_list_item_activated_1,
                 filename.toArray(new String[filename.size()]));
 
-        ListView listView = (ListView) findViewById(R.id.list_file);
         listView.setAdapter(adapter);
+
+        Log.d(TAG, "here");
+        
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                view.showContextMenu();
+            }
+        });
     }
 
     @Override
@@ -64,6 +89,19 @@ public class FileManager extends ActionBarActivity {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_file_manager, menu);
         return true;
+    }
+
+
+    public void onListItemClick(ListView l, View v, int position, long id)
+    {
+        v.showContextMenu();
+    }
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        MenuInflater options_menu_inflater = getMenuInflater();
+        options_menu_inflater.inflate(R.menu.options_menu, menu);
     }
 
     @Override
