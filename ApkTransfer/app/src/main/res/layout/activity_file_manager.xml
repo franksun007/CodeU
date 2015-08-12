@@ -10,7 +10,7 @@
 
     <TextView
         android:text="@string/title_activity_file_manager"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/warning_server_status"
         android:textStyle="bold"
@@ -18,9 +18,16 @@
 
     <ListView
         android:layout_width="match_parent"
-        android:layout_height="675dp"
+        android:layout_height="wrap_content"
         android:id="@+id/list_file"
         android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp" />
+        android:layout_marginBottom="10dp"
+        android:alwaysDrawnWithCache="true"
+        android:dividerHeight="1dp"
+        android:horizontalSpacing="3dp"
+        android:scrollingCache="true"
+        android:smoothScrollbar="true"
+        android:stretchMode="columnWidth"
+        android:verticalSpacing="3dp" />
 
 </LinearLayout>

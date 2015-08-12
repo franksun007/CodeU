@@ -1,7 +1,7 @@
 # CodeU
 This repo is used for the final project of CodeU. The main purpose of this app is to transfer (mainly apk) files through the networks and possibly auto install them.
 
-# Probelm
+# Problem
 The problem we have is that for all kinds of Android devices (Tablet, Phone and Watch), it seems hard to **_install an offline or third-party apk from Computer/Laptop_**. We are trying to solve this problem by letting the device be a server and wirelessly (through the Local Area Network) transfer the files from the host machine to the device. Our targetting file type is **apk** file, but might extend to other type of files as well. 
 
 # Solution
