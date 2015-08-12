@@ -146,6 +146,8 @@ public class finder_dialog implements OnItemClickListener, OnClickListener {
 
             Log.d(TAG, "deleting old file");
             new File(storagePath + "/" + file).delete();
+            ((FileManager) m_context).setupFileListandBindListener();
+
         }  catch (FileNotFoundException fnfe1) {
             Log.e("tag", fnfe1.getMessage());
         }
