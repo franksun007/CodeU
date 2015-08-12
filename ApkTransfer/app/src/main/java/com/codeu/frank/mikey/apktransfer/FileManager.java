@@ -1,6 +1,9 @@
 package com.codeu.frank.mikey.apktransfer;
 
+import android.app.AlertDialog;
 import android.app.ListActivity;
+import android.content.Intent;
+import android.net.Uri;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -22,14 +25,18 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
 public class FileManager extends ActionBarActivity {
 
-    private String serverStatus;
-    private String storagePath;
+    public String serverStatus;
+    public String storagePath;
     public static final String TAG = "ApkTransfer";
 
     ListView listView;
@@ -94,10 +101,10 @@ public class FileManager extends ActionBarActivity {
                 deleteItem((TextView) info.targetView);
                 return true;
             case R.id.id_install:
-                installItem(info.id);
+                installItem((TextView) info.targetView);
                 return true;
             case R.id.id_move:
-                moveItem(info.id);
+                moveItem((TextView) info.targetView);
                 return true;
             default:
                 return super.onContextItemSelected(item);
@@ -116,16 +123,46 @@ public class FileManager extends ActionBarActivity {
         }
     }
 
-    private void installItem(long id) {
-        TextView tv = (TextView) listView.findViewById(android.R.id.text1);
-        String info = tv.getText().toString();
+    private void installItem(TextView view) {
+        String info = view.getText().toString();
+        if (info.endsWith(".apk")) {
+            Log.d(TAG, "here");
+                /* create a new file class connected to the file that was just uploaded */
+            File file = new File(storagePath + "/" + info);
+
+                /* needed to prevent the android from being unable to read the file */
+            file.setReadable(true, false);
+
+                /* creating the intent to install the application */
+            Intent intent = new Intent(Intent.ACTION_VIEW);
+            intent.setDataAndType(Uri.fromFile(file), "application/vnd.android.package-archive");
+
+            //intent.setData(Uri.parse("file:" + path + "/" + fileName));
+            Log.d(TAG, "URI worked well");
+
+                /* since we are activating an intent outside of an activity class, we need
+                to add a flag saying we are starting a new task */
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
+            Log.d(TAG, "about to start the intent");
+                /* activate the intent */
+            MainActivity.getContext().startActivity(intent);
+            Log.d(TAG, "CELEBRATE!");
+        } else {
+            AlertDialog.Builder builder = new AlertDialog.Builder(FileManager.this);
+            builder.setMessage(R.string.error_message)
+                    .setTitle(R.string.error_title);
+
+            AlertDialog dialog = builder.create();
+
+            dialog.show();
+        }
         Log.d(TAG, info);
     }
 
-    private void moveItem(long id) {
-        TextView tv = (TextView) listView.findViewById(android.R.id.text1);
-        String info = tv.getText().toString();
-        Log.d(TAG, info);
+    private void moveItem(TextView view) {
+        String info = view.getText().toString();
+        finder_dialog dialog = new finder_dialog(FileManager.this, info, storagePath);
     }
 
     @Override
