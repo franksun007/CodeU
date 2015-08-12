@@ -9,4 +9,9 @@
     <string name="title_delete">Delete</string>
     <string name="title_move">Move</string>
     <string name="title_install">Install</string>
+    <string name="dialog_message">TESTINGGG</string>
+    <string name="dialog_title">TITLEEE</string>
+    <string name="error_message">You cannot install non apk files</string>
+    <string name="error_title">Error: Cannot install this file</string>
+
 </resources>
