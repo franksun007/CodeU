@@ -152,6 +152,7 @@ public class finder_dialog implements OnItemClickListener, OnClickListener {
         catch (Exception e) {
             Log.e("tag", e.getMessage());
         }
+
     }
 
     private void listDirs() {

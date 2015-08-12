@@ -37,7 +37,7 @@ public class FileManager extends ActionBarActivity {
 
     public String serverStatus;
     public String storagePath;
-    public static final String TAG = "ApkTransfer";
+    public final String TAG = "ApkTransfer";
 
     ListView listView;
     ArrayAdapter<String> adapter;
@@ -167,7 +167,6 @@ public class FileManager extends ActionBarActivity {
     private void moveItem(TextView view) {
         String info = view.getText().toString();
         finder_dialog dialog = new finder_dialog(FileManager.this, info, storagePath);
-        setupFileListandBindListener();
     }
 
     @Override
