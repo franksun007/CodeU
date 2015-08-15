@@ -16,6 +16,7 @@ import fi.iki.elonen.NanoHTTPD;
 
 /**
  * Created by chenfs on 8/3/15.
+ * Used NanoHTTPD server from maven central repository
  */
 public class MyServer extends NanoHTTPD{
     public static final String TAG = "ApkTransfer";
