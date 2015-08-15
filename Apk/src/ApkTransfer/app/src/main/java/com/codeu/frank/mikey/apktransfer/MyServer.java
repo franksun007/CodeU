@@ -133,11 +133,11 @@ public class MyServer extends NanoHTTPD{
         html.append("<body>");
         html.append("<h1>This is the Instruction for using ApkTransfer App</h1>");
         html.append("<h2>From a terminal/console, type a CURL command like:</h2>");
-        html.append("<h2><pre>curl -v -F upload=@[Path to Your File] " +
-                "\"http://" + ipAddr + ":" + port + "\"</pre></h2>");
+        html.append("<h2><pre>curl -v -F upload=@[Path to Your File] -F security=\"" + security +
+                "\" \"http://" + ipAddr + ":" + port + "\"</pre></h2>");
         html.append("<h2><pre>e.g.</pre></h2>");
         html.append("<h2><pre>curl -v -F " +
-                "upload=@/Users/dude/MyAwesomeCoolapp.apk " +
+                "upload=@/Users/dude/MyAwesomeCoolapp.apk -F security=\"ImDoPE\" " +
                 "\"http://" + ipAddr + ":" + port + "\"</pre></h2>");
         html.append("<h2>If you receive some response like \"File Received\" - </h2>");
         html.append("<h2>That means you are a hero.</h2>");
